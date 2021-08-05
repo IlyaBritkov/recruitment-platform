@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/calendars")
@@ -34,15 +37,15 @@ public class CalendarController {
     }
 
     @Secured({"ROLE_RECRUITER", "ROLE_ADMIN"})
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = APPLICATION_JSON_VALUE,
+            produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CalendarSlotDto> updateUserTime(@Valid @RequestBody InterviewAssignmentDto dto) {
         return ResponseEntity.ok(userTimeService.update(dto));
     }
 
     @Secured({"ROLE_ADMIN"})
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public ResponseEntity<CalendarSlotDto> save(@Valid @RequestBody CalendarSlotDto calendarSlotDto) {
         return ResponseEntity.ok(userTimeService.save(calendarSlotDto));
     }

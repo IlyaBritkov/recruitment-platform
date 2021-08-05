@@ -24,8 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 
-@RestController
+import static org.springframework.http.HttpStatus.ACCEPTED;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+
 @AllArgsConstructor
+
+@RestController
 @RequestMapping("/api/internship-request")
 public class InternshipRequestController {
 
@@ -34,13 +39,13 @@ public class InternshipRequestController {
 
     @Secured({"ROLE_ADMIN"})
     @PutMapping("/update-status")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public void updateStatus(@Valid @RequestBody StatusDto statusDto) throws ValidationException {
         internshipRequestService.updateStatus(statusDto);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public ResponseEntity<InternshipRequestDto> save(@Valid @RequestBody InternshipRequestDto internshipRequestDto) {
         InternshipRequestDto requestDto = internshipRequestService.save(internshipRequestDto);
         emailService.sendEmail(requestDto.getUserDto().getEmail(), emailService.placeholder(requestDto), EmailType.SENDING_APPLICATION_TEMPLATE);
@@ -53,7 +58,7 @@ public class InternshipRequestController {
     }
 
     @PostMapping("/search")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public PageableResponseDto getInternshipRequests(@Valid @RequestBody InternshipRequestSearchDto internshipRequestSearchDto) {
         return internshipRequestService.getInternshipRequests(internshipRequestSearchDto);
     }

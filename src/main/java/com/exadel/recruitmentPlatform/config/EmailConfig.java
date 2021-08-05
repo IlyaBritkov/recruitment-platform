@@ -8,9 +8,10 @@ import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 @Configuration
 public class EmailConfig {
+
     @Primary
     @Bean
-    public FreeMarkerConfigurationFactoryBean factoryBean(){
+    public FreeMarkerConfigurationFactoryBean factoryBean() {
         FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
         bean.setTemplateLoaderPath("classpath:/templates");
         return bean;

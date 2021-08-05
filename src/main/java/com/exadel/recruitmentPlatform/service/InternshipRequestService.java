@@ -11,9 +11,13 @@ import javax.xml.bind.ValidationException;
 public interface InternshipRequestService {
 
     InternshipRequestDto save(InternshipRequestDto InternshipRequestDto);
+
     InternshipRequestDto get(Long id);
+
     InternshipRequestProfileDto getInternshipRequestProfile(Long id);
+
     PageableResponseDto getInternshipRequests(InternshipRequestSearchDto internshipRequestSearchDto);
+
     void updateStatus(StatusDto statusDto) throws ValidationException;
 
 }

@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
+
 @Configuration
 public class ApplicationObjectMapper extends ObjectMapper {
 
@@ -17,13 +19,15 @@ public class ApplicationObjectMapper extends ObjectMapper {
     public ApplicationObjectMapper() {
         super();
         registerModule(new JavaTimeModule());
+
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(LocalDate.class, new LocalDateSerializer());
         simpleModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
         simpleModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         simpleModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+
         registerModule(simpleModule);
-        disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        disable(WRITE_DATES_AS_TIMESTAMPS);
     }
 
 }

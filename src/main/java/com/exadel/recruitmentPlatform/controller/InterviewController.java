@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/interview")
@@ -20,8 +22,8 @@ public class InterviewController {
     private final InterviewServiceImpl interviewService;
 
     @Secured({"ROLE_SPECIALIST", "ROLE_ADMIN", "ROLE_RECRUITER"})
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = APPLICATION_JSON_VALUE,
+            produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<InterviewDto> save(@Valid @RequestBody FeedbackDto feedback) {
         return ResponseEntity.ok(interviewService.updateFeedback(feedback.getId(), feedback.getFeedback(), feedback.getEnglishLevel()));
     }

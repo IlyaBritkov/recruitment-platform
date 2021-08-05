@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
+
     @Override
-    public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(jsonParser.getLongValue()), ZoneId.systemDefault());
-        LocalDate localDate = localDateTime.toLocalDate();
-        return localDate;
+        return localDateTime.toLocalDate();
     }
 }

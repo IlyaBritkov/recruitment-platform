@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/internships")
@@ -48,8 +50,8 @@ public class InternshipController {
     }
 
     @Secured({"ROLE_SPECIALIST", "ROLE_ADMIN"})
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = APPLICATION_JSON_VALUE,
+            produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<InternshipResponseDto> updateInternship(
             @Valid @RequestBody InternshipDto dto) {
         return ResponseEntity.ok(internshipService.update(dto));
